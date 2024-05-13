@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void AnimateSprite()
+        //animation de l'oiseau
     {
         currentSprite ++;
 
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour
             currentSprite = 0;
         }
         spriteRenderer.sprite = sprites[currentSprite];
+
     }
 
 }
