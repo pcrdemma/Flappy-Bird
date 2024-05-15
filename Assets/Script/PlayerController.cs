@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -49,7 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Obstacle"))
         {
-            FindObjectOfType<GameManager>().GameOver();
+            SceneManager.LoadScene("GameOver");
         }
         else if (other.gameObject.CompareTag("Score"))
         {

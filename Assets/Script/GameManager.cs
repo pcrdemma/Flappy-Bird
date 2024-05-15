@@ -1,35 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
+[DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
 {
-    public PlayerController player;
+    public static GameManager Instance { get; private set; }
 
-    public Text scoreText; 
-
-    public GameObject playButton;
-
-    public GameObject gameOverText;
+    [SerializeField] private PlayerController player;
+    [SerializeField] private Text scoreText;
 
     private int score;
+    public int Score => score;
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return; // Add return to prevent further execution
+        }
 
         Application.targetFrameRate = 60;
-        Pause();
-        
+    }
+
+    private void Start()
+    {
+        Play();
     }
 
     public void Play()
     {
         score = 0;
         scoreText.text = score.ToString();
-
-        playButton.SetActive(false);
-        gameOverText.SetActive(false);
 
         Time.timeScale = 1f;
         player.enabled = true;
@@ -48,20 +55,9 @@ public class GameManager : MonoBehaviour
         player.enabled = false;
     }
 
-
-    public void GameOver()
-    {
-        gameOverText.SetActive(true);
-        playButton.SetActive(true);
-
-        Pause();
-        
-    }
-
     public void IncreaseScore()
     {
         score++;
         scoreText.text = score.ToString();
     }
-
 }
