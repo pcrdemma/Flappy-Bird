@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameOverMana : MonoBehaviour
+public class GameOverManager : MonoBehaviour
 {
     public void ChangeSceneAndRestartGame()
     {

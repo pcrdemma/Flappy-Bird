@@ -6,8 +6,15 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    // faire les prefab a instancier
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private CanvaController canvaPrefab;
+    //script du score controller
+
+
+    // references
     [SerializeField] private PlayerController player;
-    [SerializeField] private Text scoreText;
+    CanvaController canva;
 
     private int score;
     public int Score => score;
@@ -26,17 +33,19 @@ public class GameManager : MonoBehaviour
         }
 
         Application.targetFrameRate = 60;
+        Debug.Log("GameManager Start & abonnemment");
+        NotifyGameSceneStart.onLevelStart += Play;
     }
 
-    private void Start()
-    {
-        Play();
-    }
 
     public void Play()
     {
+        Debug.Log("j'instancie ce qu'il faut");
+        canva = Instantiate(canvaPrefab);
+        player = Instantiate(playerPrefab).GetComponent<PlayerController>();
         score = 0;
-        scoreText.text = score.ToString();
+
+        canva.UpdateScore(score);
 
         Time.timeScale = 1f;
         player.enabled = true;
@@ -58,6 +67,6 @@ public class GameManager : MonoBehaviour
     public void IncreaseScore()
     {
         score++;
-        scoreText.text = score.ToString();
+        canva.UpdateScore(score);
     }
 }

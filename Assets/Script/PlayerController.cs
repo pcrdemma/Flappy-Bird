@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Score"))
         {
+            // pas bien 
             FindObjectOfType<GameManager>().IncreaseScore();
         }
     }
