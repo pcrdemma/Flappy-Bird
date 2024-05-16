@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 [DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
@@ -8,12 +7,9 @@ public class GameManager : MonoBehaviour
 
     // faire les prefab a instancier
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private CanvaController canvaPrefab;
-    //script du score controller
-
-
-    // references
     [SerializeField] private PlayerController player;
+
+    [SerializeField] private CanvaController canvaPrefab;
     CanvaController canva;
 
     private int score;
@@ -29,18 +25,16 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-            return; // Add return to prevent further execution
+            return;
         }
 
         Application.targetFrameRate = 60;
-        Debug.Log("GameManager Start & abonnemment");
         NotifyGameSceneStart.onLevelStart += Play;
     }
 
 
     public void Play()
     {
-        Debug.Log("j'instancie ce qu'il faut");
         canva = Instantiate(canvaPrefab);
         player = Instantiate(playerPrefab).GetComponent<PlayerController>();
         score = 0;
