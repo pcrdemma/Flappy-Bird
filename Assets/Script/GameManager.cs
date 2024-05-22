@@ -6,13 +6,15 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     // faire les prefab a instancier
-    [SerializeField] private GameObject playerPrefab;
+    /*[SerializeField] private GameObject playerPrefab;*/
     [SerializeField] private PlayerController player;
 
-    [SerializeField] private CanvaController canvaPrefab;
-    CanvaController canva;
+    /* [SerializeField] private CanvaController canvaPrefab;*/
+    [SerializeField] private CanvaController canva;
 
-    private int score;
+    public PlayerData playerData;
+
+    public int score;
     public int Score => score;
 
     private void Awake()
@@ -21,10 +23,13 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            
+            //DontDestroyOnLoad(canva);
+            //DontDestroyOnLoad(player);
         }
         else
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
             return;
         }
 
@@ -32,11 +37,12 @@ public class GameManager : MonoBehaviour
         NotifyGameSceneStart.onLevelStart += Play;
     }
 
-
     public void Play()
     {
-        canva = Instantiate(canvaPrefab);
-        player = Instantiate(playerPrefab).GetComponent<PlayerController>();
+        player = FindObjectOfType<PlayerController>();
+        canva = FindObjectOfType<CanvaController>();
+        /*canva = Instantiate(canvaPrefab);
+        player = Instantiate(playerPrefab).GetComponent<PlayerController>();*/
         score = 0;
 
         canva.UpdateScore(score);
@@ -60,7 +66,10 @@ public class GameManager : MonoBehaviour
 
     public void IncreaseScore()
     {
+        Debug.Log("IncreaseScore");
         score++;
-        canva.UpdateScore(score);
+        playerData.score = score;
+        canva.UpdateScore(playerData.score);
     }
+
 }

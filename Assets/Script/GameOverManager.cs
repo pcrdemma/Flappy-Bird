@@ -7,6 +7,5 @@ public class GameOverManager : MonoBehaviour
     {
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
     }
 }
