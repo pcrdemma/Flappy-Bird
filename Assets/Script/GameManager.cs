@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [DefaultExecutionOrder(-1)]
@@ -5,11 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    // faire les prefab a instancier
-    /*[SerializeField] private GameObject playerPrefab;*/
-    [SerializeField] private PlayerController player;
+    public event Action<int> OnScoreChanged;
 
-    /* [SerializeField] private CanvaController canvaPrefab;*/
+    [SerializeField] private PlayerController player;
     [SerializeField] private CanvaController canva;
 
     public PlayerData playerData;
@@ -70,6 +69,7 @@ public class GameManager : MonoBehaviour
         score++;
         playerData.score = score;
         canva.UpdateScore(playerData.score);
+        OnScoreChanged?.Invoke(score);
     }
 
 }
