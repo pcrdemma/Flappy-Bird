@@ -20,9 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        Vector3 position = transform.position;
-        position.y = 0;
-        transform.position = position;
+        transform.position = startPosition; // Ensure the player starts at the start position
         direction = Vector3.zero;
     }
 
@@ -55,14 +53,9 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Ground"))
         {
-            ResetPosition(); // Reset position when hitting the ground
+            Debug.Log("Hit the ground, triggering game over");
+            SceneManager.LoadScene("GameOver"); // End the game immediately
         }
-    }
-
-    private void ResetPosition()
-    {
-        transform.position = startPosition;
-        direction = Vector3.zero;
     }
 
 }
