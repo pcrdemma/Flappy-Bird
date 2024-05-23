@@ -33,7 +33,7 @@ public class SpawnerObstacle : MonoBehaviour
 
     private void HandleScoreChanged(int newScore)
     {
-        if (newScore >= 10 && newScore <= 15)
+        if (newScore > 10 && newScore < 15)
         {
             stopSpawning = true;
         }
