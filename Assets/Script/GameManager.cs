@@ -65,7 +65,6 @@ public class GameManager : MonoBehaviour
 
     public void IncreaseScore()
     {
-        Debug.Log("IncreaseScore");
         score++;
         playerData.score = score;
         canva.UpdateScore(playerData.score);

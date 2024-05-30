@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class SpawnerObstacle : MonoBehaviour
 {
-    public GameObject prefab;
+    public GameObject pipePrefab;
+    public GameObject fireSpawnerPrefab; // Add reference to the fire spawner prefab
     public float appearance = 1f;
     public float minHeight = -1f;
     public float maxHeight = 1f;
-    private bool stopSpawning = false;
+    private bool stopSpawningPipes = false;
+    private int pipesSpawned = 0;
 
     private void OnEnable()
     {
@@ -24,22 +26,24 @@ public class SpawnerObstacle : MonoBehaviour
 
     private void Appearance()
     {
-        if (!stopSpawning)
+        if (!stopSpawningPipes)
         {
-            GameObject pipes = Instantiate(prefab, transform.position, Quaternion.identity);
+            GameObject pipes = Instantiate(pipePrefab, transform.position, Quaternion.identity);
             pipes.transform.position += Vector3.up * Random.Range(minHeight, maxHeight);
+            pipesSpawned++;
+
+            if (pipesSpawned >= 10)
+            {
+                stopSpawningPipes = true;
+                // Spawn the fire spawner prefab
+                Instantiate(fireSpawnerPrefab, transform.position, Quaternion.identity);
+            }
         }
+        
     }
 
     private void HandleScoreChanged(int newScore)
     {
-        if (newScore > 10 && newScore < 15)
-        {
-            stopSpawning = true;
-        }
-        else
-        {
-            stopSpawning = false;
-        }
+        // Handle score change if needed
     }
 }
