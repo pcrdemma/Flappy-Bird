@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class PipesObstacle : MonoBehaviour
@@ -7,9 +8,9 @@ public class PipesObstacle : MonoBehaviour
 
     private void Start()
     {
-        endScreen = Camera.main.ScreenToWorldPoint(Vector3.zero).x -1f;
+        endScreen = Camera.main.ScreenToWorldPoint(Vector3.zero).x - 1f;
     }
-   
+
 
     private void Update()
     {
