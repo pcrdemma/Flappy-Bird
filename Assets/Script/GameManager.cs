@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections;
 
 [DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
@@ -22,13 +23,10 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            
-            //DontDestroyOnLoad(canva);
-            //DontDestroyOnLoad(player);
         }
         else
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
             return;
         }
 
@@ -36,12 +34,39 @@ public class GameManager : MonoBehaviour
         NotifyGameSceneStart.onLevelStart += Play;
     }
 
+    public void AddScore(int amount)
+    {
+        if (score < 15 || score > 20)
+        {
+            score += amount;
+            playerData.score = score;
+            canva.UpdateScore(playerData.score);
+            OnScoreChanged?.Invoke(score);
+        }
+
+        if (score == 15)
+        {
+            StartCoroutine(StopGameWithDelay(2f));
+        }
+    }
+
+    private IEnumerator StopGameWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        StopGame();
+    }
+
+    private void StopGame()
+    {
+         // This will pause the game
+        Debug.Log("Game stopped because score is 15.");
+        // Additional logic to show game over screen or menu can be added here
+    }
+
     public void Play()
     {
         player = FindObjectOfType<PlayerController>();
         canva = FindObjectOfType<CanvaController>();
-        /*canva = Instantiate(canvaPrefab);
-        player = Instantiate(playerPrefab).GetComponent<PlayerController>();*/
         score = 0;
 
         canva.UpdateScore(score);
@@ -65,10 +90,6 @@ public class GameManager : MonoBehaviour
 
     public void IncreaseScore()
     {
-        score++;
-        playerData.score = score;
-        canva.UpdateScore(playerData.score);
-        OnScoreChanged?.Invoke(score);
+        AddScore(1);
     }
-
 }
