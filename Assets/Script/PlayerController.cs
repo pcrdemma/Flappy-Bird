@@ -9,8 +9,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
     private Vector3 direction;
-    private Vector3 startPosition; // To store the start position
-    public float gravity = -9.8f;
+    private Vector3 startPosition;
     public float strength = 5f;
     private LifeSystem lifeSystem;
     private Rigidbody2D rb;
@@ -21,21 +20,21 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        lifeSystem = FindObjectOfType<LifeSystem>(); // Find the LifeSystem component in the scene
-        startPosition = transform.position; // Store the initial position
+        lifeSystem = FindObjectOfType<LifeSystem>(); 
+        startPosition = transform.position; 
     }
 
     private void OnEnable()
     {
-        transform.position = startPosition; // Ensure the player starts at the start position
+        transform.position = startPosition; 
         direction = Vector3.zero;
         
         var playerControls = inputActions.FindActionMap("Player");
         jumpAction = playerControls.FindAction("Jump");
 
-        jumpAction.performed += ctx => Jump(); // Call Jump() when the jump action is performed
+        jumpAction.performed += ctx => Jump(); 
 
-        jumpAction.Enable(); // Enable the input actions
+        jumpAction.Enable(); 
     }
 
     private void Update()
@@ -47,13 +46,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        jumpAction.Disable(); // Disable the input actions
+        jumpAction.Disable(); 
     }
 
     private void Jump()
     {
         direction = Vector3.up * strength;
-        AnimateSprite(); // Call animation on input
+        AnimateSprite(); 
     }
 
     private void AnimateSprite()
@@ -65,8 +64,8 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Obstacle"))
         {
-            lifeSystem.Damage(1); // Decrease life by 1
-            StartCoroutine(HandleTransparency()); // Start the transparency coroutine
+            lifeSystem.Damage(1); 
+            StartCoroutine(HandleTransparency()); 
         }
         else if (other.gameObject.CompareTag("Score"))
         {
@@ -75,7 +74,7 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.CompareTag("Ground"))
         {
             Debug.Log("Hit the ground, triggering game over");
-            SceneManager.LoadScene("GameOver"); // End the game immediately
+            SceneManager.LoadScene("GameOver"); 
         }
     }
 
@@ -97,23 +96,16 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator HandleTransparency()
     {
-        float blinkCount = 3.5f; // Number of times to blink
-        float blinkDuration = 0.1f; // Duration of each blink
-        Color transparentColor = new Color(1f, 1f, 1f, 0.5f); // Transparent color
-        Color originalColor = spriteRenderer.color; // Original color of the sprite
+        float blinkCount = 3.5f; 
+        float blinkDuration = 0.1f;
+        Color transparentColor = new Color(1f, 1f, 1f, 0.5f);
+        Color originalColor = spriteRenderer.color;
 
         for (int i = 0; i < blinkCount; i++)
         {
-            // Make the sprite transparent
             spriteRenderer.color = transparentColor;
-
-            // Wait for a short duration
             yield return new WaitForSeconds(blinkDuration);
-
-            // Revert the sprite to its original color
             spriteRenderer.color = originalColor;
-
-            // Wait for another short duration
             yield return new WaitForSeconds(blinkDuration);
         }
     }
