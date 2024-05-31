@@ -58,7 +58,11 @@ public class PlayerController : MonoBehaviour
 
     private void AnimateSprite()
     {
-        animator.SetTrigger("OnClick");
+        if(animator != null)
+        {
+            animator.SetTrigger("OnClick");
+
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
