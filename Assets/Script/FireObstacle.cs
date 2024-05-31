@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class FireObstacle : MonoBehaviour
@@ -59,6 +60,7 @@ public class FireObstacle : MonoBehaviour
         if (GameObject.Find("GameManager").GetComponent<GameManager>().score >= 15)
         {
             Destroy(gameObject);
+            SceneManager.LoadScene("WinMenu");
         }
      
         
