@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     private Vector3 direction;
     private Vector3 startPosition;
+    public float gravity = -9.8f;
     public float strength = 5f;
     private LifeSystem lifeSystem;
     private Rigidbody2D rb;
