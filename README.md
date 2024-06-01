@@ -37,7 +37,3 @@ Pour jouer au jeu, suivez ces étapes simples :
 ## ❗ Pour quitter le jeu
 
 - Appuyez sur **Alt + F4** pour fermer le jeu. 🚪
-
----
-
-Amusez-vous bien avec **Flappy Bird 2D** et essayez d'atteindre le meilleur score possible ! 🎉
