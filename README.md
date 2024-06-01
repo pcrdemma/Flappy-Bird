@@ -6,8 +6,8 @@ Bienvenue dans **Flappy Bird 2D** ! Un jeu captivant où vous devez aider un pet
 
 Pour jouer au jeu, suivez ces étapes simples :
 
-1. **Téléchargez et décompressez** le fichier `FlappyBird2D.zip`.
-2. **Ouvrez le fichier `FlappyBird2D.exe`** pour lancer le jeu.
+1. **Téléchargez et décompressez** le fichier `FlappyBird.zip`.
+2. **Ouvrez le fichier `FlappyBirdEmma.exe`** pour lancer le jeu.
 
 ## 🎮 Comment jouer
 
